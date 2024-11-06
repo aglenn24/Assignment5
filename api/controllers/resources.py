@@ -5,6 +5,7 @@ from ..models import models, schemas
 
 def create(db: Session, resource):
     db_resource = models.Resource(
+        # does not have explicit ID
         item=resource.item,
         amount=resource.amount,
     )
