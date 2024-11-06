@@ -98,6 +98,7 @@ def read_one_sandwich(sandwich_name: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Sandwich not found")
     return sandwich
 
+# Since there is no sandwich_id for this controller, the string name will be the search parameter
 @app.put("/sandwiches/{sandwich_name}", response_model=schemas.Sandwich, tags=["Sandwiches"])
 def update_one_sandwich(sandwich_name: str, sandwich: schemas.SandwichUpdate, db: Session = Depends(get_db)):
     sandwich_db = sandwiches.read_one(db, sandwich_name=sandwich_name)
@@ -105,6 +106,7 @@ def update_one_sandwich(sandwich_name: str, sandwich: schemas.SandwichUpdate, db
         raise HTTPException(status_code=404, detail="Sandwich not found")
     return sandwiches.update(db=db, sandwich=sandwich, sandwich_name=sandwich_name)
 
+# Since there is no sandwich_id for this controller, the string name will be the search parameter
 @app.delete("/sandwiches/{sandwich_name}", tags=["Sandwiches"])
 def delete_one_sandwich(sandwich_name: str, db: Session = Depends(get_db)):
     sandwich = sandwiches.read_one(db, sandwich_name=sandwich_name)
@@ -120,6 +122,7 @@ def create_resource(resource: schemas.ResourceCreate, db: Session = Depends(get_
 def read_resources(db: Session = Depends(get_db)):
     return resources.read_all(db)
 
+# Since there is no resource_id for this controller, the string name of 'item' will be the search parameter
 @app.get("/resources/{item}", response_model=schemas.Resource, tags=["Resources"])
 def read_one_resource(item: str, db: Session = Depends(get_db)):
     resource = resources.read_one(db, item=item)
@@ -127,6 +130,7 @@ def read_one_resource(item: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Resource not found")
     return resource
 
+# Since there is no resource_id for this controller, the string name of 'item' will be the search parameter
 @app.put("/resources/{item}", response_model=schemas.Resource, tags=["Resources"])
 def update_one_resource(item: str, resource: schemas.ResourceUpdate, db: Session = Depends(get_db)):
     resource_db = resources.read_one(db, item=item)
@@ -134,6 +138,7 @@ def update_one_resource(item: str, resource: schemas.ResourceUpdate, db: Session
         raise HTTPException(status_code=404, detail="Resource not found")
     return resources.update(db=db, resource=resource, item=item)
 
+# Since there is no resource_id for this controller, the string name of 'item' will be the search parameter
 @app.delete("/resources/{item}", tags=["Resources"])
 def delete_one_resource(item: str, db: Session = Depends(get_db)):
     resource = resources.read_one(db, item=item)
